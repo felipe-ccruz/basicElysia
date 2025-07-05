@@ -1,11 +1,14 @@
 import { Elysia } from "elysia";
 import { swagger } from '@elysiajs/swagger'
 
+class Note{
+  constructor(public data: string[] = ['Moonhalo']){ }
+}
+
 const app = new Elysia()
   .use(swagger())
-  // .get("/", () => "Hello Elysia")
-  .get('/hello', ({path}) => path)
-  .post('/hello', 'Do you miss me?')
+  .decorate('note', new Note())
+  .get('/note', ({note}) => note.data)
   .listen(3000);
 
 
